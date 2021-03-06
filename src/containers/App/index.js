@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../../styles/fonts.css';
+
 import Wrapper from '../../components/Wrapper';
 import InputAutocomplete from '../../components/InputAutocomplete';
 
