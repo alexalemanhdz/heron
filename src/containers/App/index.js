@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Wrapper from '../../components/Wrapper';
+import InputAutocomplete from '../../components/InputAutocomplete';
 
 const App = () => (
   <Wrapper
@@ -11,7 +12,14 @@ const App = () => (
     }}
     primary
   >
-    <p>Hola mundo</p>
+    <InputAutocomplete
+      m2
+      mt5
+      placeholder="Calle origen"
+      suggestions={['Calle Falsa', 'Calle No Real']}
+      onReady={(value) => console.log(value)}
+      error={false}
+    />
   </Wrapper>
 );
 
