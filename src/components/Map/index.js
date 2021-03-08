@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import 'leaflet.heat';
+import { crimeCoords } from '../../data/crimeCoords';
 
 const Container = styled.div`
   height: 315px;
@@ -18,6 +20,8 @@ const Map = () => {
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(mapRef.current);
+
+    L.heatLayer(crimeCoords).addTo(mapRef.current);
   }, []);
 
   return <Container id="map" />;
