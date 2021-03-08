@@ -4,6 +4,7 @@ import '../../styles/fonts.css';
 
 import Wrapper from '../../components/Wrapper';
 import InputAutocomplete from '../../components/InputAutocomplete';
+import Map from '../../components/Map';
 
 const App = () => (
   <Wrapper
@@ -22,6 +23,7 @@ const App = () => (
       onReady={(value) => console.log(value)}
       error={false}
     />
+    <Map />
   </Wrapper>
 );
 
