@@ -5,6 +5,7 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import L from 'leaflet';
 import 'leaflet.heat';
 import 'leaflet-routing-machine';
+import 'leaflet-control-geocoder';
 import { crimeCoords } from '../../data/crimeCoords';
 
 const Container = styled.div`
@@ -25,13 +26,15 @@ const Map = () => {
 
     L.heatLayer(crimeCoords).addTo(mapRef.current);
 
-    // L.Routing.control({
-    //   waypoints: [
-    //     L.latLng(19.325874, -99.164856),
-    //     L.latLng(19.328115, -99.16230999999999),
-    //   ],
-    // }).addTo(mapRef.current);
-  }, []);
+  //   L.Routing.control({
+  //     waypoints: [
+  //       L.latLng(19.325874, -99.164856),
+  //       L.latLng(19.328115, -99.16230999999999),
+  //     ],
+  //     routeWhileDragging: true,
+  //     geocoder: L.Control.Geocoder.nominatim(),
+  //   }).addTo(mapRef.current);
+  // }, []);
 
   return <Container id="map" />;
 };
