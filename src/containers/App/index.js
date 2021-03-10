@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import '../../styles/fonts.css';
 
@@ -7,15 +8,20 @@ import InputAutocomplete from '../../components/InputAutocomplete';
 import Button from '../../components/Button';
 import Map from '../../components/Map';
 
+import { updateQuery } from './actions';
+
 const App = () => {
+  const dispatch = useDispatch();
+
   const [startStreet, setStartStreet] = useState(null);
+  const query = useSelector((state) => state.query);
 
   const updateStartStreet = (value) => {
     setStartStreet(value);
   };
 
   const searchStreet = () => {
-    console.log(startStreet);
+    dispatch(updateQuery(startStreet));
   };
 
   return (
@@ -43,7 +49,7 @@ const App = () => {
         onClick={searchStreet}
         disabled={!(startStreet)}
       />
-      <Map />
+      <Map query={query} />
     </Wrapper>
   );
 };

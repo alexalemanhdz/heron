@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
@@ -13,8 +14,10 @@ const Container = styled.div`
   width: 315px;
 `;
 
-const Map = () => {
+const Map = ({ query }) => {
   const mapRef = useRef();
+
+  console.log(query);
 
   useEffect(() => {
     mapRef.current = L.map('map').setView([19.327421, -99.167824], 13);
@@ -42,6 +45,10 @@ const Map = () => {
   }, []);
 
   return <Container id="map" />;
+};
+
+Map.propTypes = {
+  query: PropTypes.string.isRequired,
 };
 
 export default Map;
