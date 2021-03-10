@@ -26,14 +26,19 @@ const Map = () => {
 
     L.heatLayer(crimeCoords).addTo(mapRef.current);
 
-    L.Routing.control({
-      waypoints: [
-        L.latLng(19.325874, -99.164856),
-        L.latLng(19.328115, -99.16230999999999),
-      ],
-      routeWhileDragging: true,
-      geocoder: L.Control.Geocoder.nominatim(),
-    }).addTo(mapRef.current);
+    const geocoder = new L.Control.Geocoder.Nominatim();
+    geocoder.geocode('calle jumil', (results) => {
+      console.log(results);
+    });
+
+    // L.Routing.control({
+    //   waypoints: [
+    //     L.latLng(19.325874, -99.164856),
+    //     L.latLng(19.328115, -99.16230999999999),
+    //   ],
+    //   routeWhileDragging: true,
+    //   geocoder: L.Control.Geocoder.nominatim(),
+    // }).addTo(mapRef.current);
   }, []);
 
   return <Container id="map" />;
