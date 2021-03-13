@@ -13,12 +13,12 @@ import { updateQuery } from './actions';
 const App = () => {
   const dispatch = useDispatch();
 
-  const [startStreet, setStartStreet] = useState(null);
+  const [startStreet] = useState(null);
   const query = useSelector((state) => state.query);
 
-  const updateStartStreet = (value) => {
-    setStartStreet(value);
-  };
+  // const updateStartStreet = (value) => {
+  //   setStartStreet(value);
+  // };
 
   const searchStreet = () => {
     dispatch(updateQuery(startStreet));
@@ -38,7 +38,8 @@ const App = () => {
         mt5
         placeholder="Calle origen"
         suggestions={['Calle Falsa']}
-        onReady={updateStartStreet}
+        onChange={(q) => dispatch(updateQuery(q))}
+        onReady={(v) => console.log(v)}
         error={false}
       />
       <Button

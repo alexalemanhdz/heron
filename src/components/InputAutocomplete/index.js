@@ -7,10 +7,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
-
 import theme, { spacingMapping } from '../../utils/theme';
 
 const Container = styled.div`
@@ -98,17 +94,18 @@ function InputAutocomplete({
   mb5,
   placeholder,
   suggestions,
+  onChange,
   onReady,
   error,
 }) {
   const [showSuggestions, setShowSuggestions] = useState(true);
-  const [query, setQuery] = useState('');
+  const [query] = useState('');
 
   let mainInputRef = useRef(null);
 
-  const updateQuery = (q) => {
+  const updateLocalQuery = (q) => {
     setShowSuggestions(true);
-    setQuery(q);
+    onChange(q);
     onReady('');
   };
 
@@ -151,7 +148,7 @@ function InputAutocomplete({
           return 0;
         }}
         placeholder={placeholder}
-        onChange={(e) => updateQuery(e.target.value)}
+        onChange={(e) => updateLocalQuery(e.target.value)}
         className={error ? 'error' : ''}
       />
       <Suggestions className={showSuggestions && query ? '' : 'hidden'}>
@@ -188,6 +185,7 @@ InputAutocomplete.propTypes = {
   mb5: PropTypes.bool,
   placeholder: PropTypes.string,
   suggestions: PropTypes.array.isRequired,
+  onChange: PropTypes.func,
   onReady: PropTypes.func,
   error: PropTypes.bool.isRequired,
 };

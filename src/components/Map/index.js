@@ -17,8 +17,6 @@ const Container = styled.div`
 const Map = ({ query }) => {
   const mapRef = useRef();
 
-  console.log(query);
-
   useEffect(() => {
     mapRef.current = L.map('map').setView([19.327421, -99.167824], 13);
 
@@ -29,11 +27,6 @@ const Map = ({ query }) => {
 
     L.heatLayer(crimeCoords).addTo(mapRef.current);
 
-    const geocoder = new L.Control.Geocoder.Nominatim();
-    geocoder.geocode('calle jumil', (results) => {
-      console.log(results);
-    });
-
     // L.Routing.control({
     //   waypoints: [
     //     L.latLng(19.325874, -99.164856),
@@ -43,6 +36,13 @@ const Map = ({ query }) => {
     //   geocoder: L.Control.Geocoder.nominatim(),
     // }).addTo(mapRef.current);
   }, []);
+
+  useEffect(() => {
+    const geocoder = new L.Control.Geocoder.Nominatim();
+    geocoder.geocode(query, (results) => {
+      console.log(results);
+    });
+  });
 
   return <Container id="map" />;
 };
