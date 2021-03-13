@@ -7,9 +7,8 @@ export function updateQuery(query) {
   };
 }
 
-export function initSuggestionsFetch(suggestions) {
+export function initSuggestionsFetch() {
   return {
     type: INIT_SUGGESTIONS_FETCH,
-    suggestions,
   };
 }

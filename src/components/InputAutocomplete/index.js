@@ -107,7 +107,7 @@ function InputAutocomplete({
   const updateLocalQuery = (q) => {
     setShowSuggestions(true);
     onChange(q);
-    onSuggest(q);
+    onSuggest();
     onReady('');
   };
 

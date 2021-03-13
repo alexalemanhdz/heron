@@ -39,7 +39,7 @@ const App = () => {
         placeholder="Calle origen"
         suggestions={['Calle Falsa']}
         onChange={(q) => dispatch(updateQuery(q))}
-        onSuggest={(q) => dispatch(initSuggestionsFetch(q))}
+        onSuggest={() => dispatch(initSuggestionsFetch())}
         onReady={() => {}}
         error={false}
       />

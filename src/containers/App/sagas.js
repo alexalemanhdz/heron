@@ -4,7 +4,7 @@ import { INIT_SUGGESTIONS_FETCH } from './constants';
 
 function* fetchSuggestions() {
   const query = yield select((state) => state.query);
-  const geocoder = new L.Control.Geocoder.Nominatim();
+  const geocoder = yield new L.Control.Geocoder.Nominatim();
   geocoder.geocode(query, (results) => {
     console.log(results);
   });
