@@ -8,7 +8,7 @@ import InputAutocomplete from '../../components/InputAutocomplete';
 import Button from '../../components/Button';
 import Map from '../../components/Map';
 
-import { updateQuery } from './actions';
+import { updateQuery, initSuggestionsFetch } from './actions';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,7 +39,8 @@ const App = () => {
         placeholder="Calle origen"
         suggestions={['Calle Falsa']}
         onChange={(q) => dispatch(updateQuery(q))}
-        onReady={(v) => console.log(v)}
+        onSuggest={(q) => dispatch(initSuggestionsFetch(q))}
+        onReady={() => {}}
         error={false}
       />
       <Button

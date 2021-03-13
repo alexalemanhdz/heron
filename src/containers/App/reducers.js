@@ -1,4 +1,4 @@
-import { UPDATE_QUERY, UPDATE_SUGGESTIONS } from './constants';
+import { UPDATE_QUERY, INIT_SUGGESTIONS_FETCH } from './constants';
 
 export const initialState = {
   query: '',
@@ -12,7 +12,7 @@ const appReducer = (state = initialState, action) => {
         ...state,
         query: action.query,
       };
-    case UPDATE_SUGGESTIONS:
+    case INIT_SUGGESTIONS_FETCH:
       return {
         ...state,
         suggestions: action.suggestions,

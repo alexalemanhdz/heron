@@ -1,4 +1,4 @@
-import { UPDATE_QUERY, UPDATE_SUGGESTIONS } from './constants';
+import { UPDATE_QUERY, INIT_SUGGESTIONS_FETCH } from './constants';
 
 export function updateQuery(query) {
   return {
@@ -7,9 +7,9 @@ export function updateQuery(query) {
   };
 }
 
-export function updateSuggestions(suggestions) {
+export function initSuggestionsFetch(suggestions) {
   return {
-    type: UPDATE_SUGGESTIONS,
+    type: INIT_SUGGESTIONS_FETCH,
     suggestions,
   };
 }

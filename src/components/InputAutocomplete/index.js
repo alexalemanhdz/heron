@@ -95,6 +95,7 @@ function InputAutocomplete({
   placeholder,
   suggestions,
   onChange,
+  onSuggest,
   onReady,
   error,
 }) {
@@ -106,6 +107,7 @@ function InputAutocomplete({
   const updateLocalQuery = (q) => {
     setShowSuggestions(true);
     onChange(q);
+    onSuggest(q);
     onReady('');
   };
 
@@ -186,6 +188,7 @@ InputAutocomplete.propTypes = {
   placeholder: PropTypes.string,
   suggestions: PropTypes.array.isRequired,
   onChange: PropTypes.func,
+  onSuggest: PropTypes.func,
   onReady: PropTypes.func,
   error: PropTypes.bool.isRequired,
 };
