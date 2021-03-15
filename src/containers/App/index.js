@@ -8,7 +8,7 @@ import InputAutocomplete from '../../components/InputAutocomplete';
 import Button from '../../components/Button';
 import Map from '../../components/Map';
 
-import { updateQuery, initSuggestionsFetch } from './actions';
+import { updateQuery, initSuggestionsFetch, updateSuggestions } from './actions';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const App = () => {
         onClick={searchStreet}
         disabled={!(startStreet)}
       />
-      <Map query={query} />
+      <Map query={query} suggestionsCallback={(arr) => dispatch(updateSuggestions(arr))} />
     </Wrapper>
   );
 };
