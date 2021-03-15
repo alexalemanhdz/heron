@@ -3,6 +3,8 @@ import {
   UPDATE_START_SUGGESTIONS,
   UPDATE_END_QUERY,
   UPDATE_END_SUGGESTIONS,
+  SELECT_START_POINT,
+  SELECT_END_POINT,
 } from './constants';
 
 export const initialState = {
@@ -10,6 +12,8 @@ export const initialState = {
   startSuggestions: [],
   endQuery: '',
   endSuggestions: [],
+  startPoint: {},
+  endPoint: {},
 };
 
 const appReducer = (state = initialState, action) => {
@@ -33,6 +37,16 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         endSuggestions: action.suggestions,
+      };
+    case SELECT_START_POINT:
+      return {
+        ...state,
+        startPoint: action.point,
+      };
+    case SELECT_END_POINT:
+      return {
+        ...state,
+        endPoint: action.point,
       };
     default:
       return state;

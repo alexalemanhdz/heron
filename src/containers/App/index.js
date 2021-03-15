@@ -11,11 +11,11 @@ import Map from '../../components/Map';
 
 import {
   updateStartQuery,
-  initStartSuggestionsFetch,
   updateStartSuggestions,
   updateEndQuery,
-  initEndSuggestionsFetch,
   updateEndSuggestions,
+  selectStartPoint,
+  selectEndPoint,
 } from './actions';
 
 const App = () => {
@@ -26,6 +26,8 @@ const App = () => {
     startSuggestions,
     endQuery,
     endSuggestions,
+    startPoint,
+    endPoint,
   } = useSelector((state) => state, (a, b) => JSON.stringify(a) === JSON.stringify(b));
 
   // const updateStartStreet = (value) => {
@@ -48,10 +50,9 @@ const App = () => {
         suggestions={startSuggestions}
         onChange={(q) => {
           dispatch(updateStartQuery(q));
-          dispatch(initStartSuggestionsFetch());
         }}
         value={startQuery}
-        onReady={(v) => { console.log(v); }}
+        onReady={(v) => dispatch(selectStartPoint(v))}
         error={false}
       />
       <InputAutocomplete
@@ -60,10 +61,9 @@ const App = () => {
         suggestions={endSuggestions}
         onChange={(q) => {
           dispatch(updateEndQuery(q));
-          dispatch(initEndSuggestionsFetch());
         }}
         value={endQuery}
-        onReady={(v) => { console.log(v); }}
+        onReady={(v) => dispatch(selectEndPoint(v))}
         error={false}
       />
       <Button
@@ -76,7 +76,7 @@ const App = () => {
       />
       <Geocoder query={startQuery} suggestionsCallback={(arr) => dispatch(updateStartSuggestions(arr))} />
       <Geocoder query={endQuery} suggestionsCallback={(arr) => dispatch(updateEndSuggestions(arr))} />
-      <Map />
+      <Map startPoint={startPoint} endPoint={endPoint} />
     </Wrapper>
   );
 };

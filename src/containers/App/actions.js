@@ -1,22 +1,16 @@
 import {
   UPDATE_START_QUERY,
-  INIT_START_SUGGESTIONS_FETCH,
   UPDATE_START_SUGGESTIONS,
   UPDATE_END_QUERY,
-  INIT_END_SUGGESTIONS_FETCH,
   UPDATE_END_SUGGESTIONS,
+  SELECT_START_POINT,
+  SELECT_END_POINT,
 } from './constants';
 
 export function updateStartQuery(query) {
   return {
     type: UPDATE_START_QUERY,
     query,
-  };
-}
-
-export function initStartSuggestionsFetch() {
-  return {
-    type: INIT_START_SUGGESTIONS_FETCH,
   };
 }
 
@@ -34,15 +28,23 @@ export function updateEndQuery(query) {
   };
 }
 
-export function initEndSuggestionsFetch() {
-  return {
-    type: INIT_END_SUGGESTIONS_FETCH,
-  };
-}
-
 export function updateEndSuggestions(suggestions) {
   return {
     type: UPDATE_END_SUGGESTIONS,
     suggestions,
+  };
+}
+
+export function selectStartPoint(point) {
+  return {
+    type: SELECT_START_POINT,
+    point,
+  };
+}
+
+export function selectEndPoint(point) {
+  return {
+    type: SELECT_END_POINT,
+    point,
   };
 }
