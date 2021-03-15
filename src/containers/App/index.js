@@ -38,8 +38,10 @@ const App = () => {
         mt5
         placeholder="Calle origen"
         suggestions={['Calle Falsa']}
-        onChange={(q) => dispatch(updateQuery(q))}
-        onSuggest={() => dispatch(initSuggestionsFetch())}
+        onChange={(q) => {
+          dispatch(updateQuery(q));
+          dispatch(initSuggestionsFetch());
+        }}
         onReady={() => {}}
         error={false}
       />
