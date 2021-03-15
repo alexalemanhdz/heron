@@ -14,7 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   const [startStreet] = useState(null);
-  const query = useSelector((state) => state.query);
+  const { query, suggestions } = useSelector((state) => state, (a, b) => JSON.stringify(a) === JSON.stringify(b));
 
   // const updateStartStreet = (value) => {
   //   setStartStreet(value);
@@ -37,12 +37,13 @@ const App = () => {
         m2
         mt5
         placeholder="Calle origen"
-        suggestions={['Calle Falsa']}
+        suggestions={suggestions}
         onChange={(q) => {
           dispatch(updateQuery(q));
           dispatch(initSuggestionsFetch());
         }}
-        onReady={() => {}}
+        value={query}
+        onReady={(v) => { console.log(v); }}
         error={false}
       />
       <Button

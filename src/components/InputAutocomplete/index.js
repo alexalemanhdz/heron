@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme, { spacingMapping } from '../../utils/theme';
@@ -97,21 +97,9 @@ function InputAutocomplete({
   onChange,
   onReady,
   error,
+  value,
 }) {
-  const [showSuggestions, setShowSuggestions] = useState(true);
-  const [query] = useState('');
-
-  let mainInputRef = useRef(null);
-
-  const updateLocalQuery = (q) => {
-    setShowSuggestions(true);
-    onChange(q);
-    onReady('');
-  };
-
   const updateSelectedValue = (q) => {
-    setShowSuggestions(false);
-    mainInputRef.value = q;
     onReady(q);
   };
 
@@ -143,23 +131,16 @@ function InputAutocomplete({
       })()}
     >
       <Input
-        ref={(e) => {
-          mainInputRef = e;
-          return 0;
-        }}
         placeholder={placeholder}
-        onChange={(e) => updateLocalQuery(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
         className={error ? 'error' : ''}
       />
-      <Suggestions className={showSuggestions && query ? '' : 'hidden'}>
+      <Suggestions>
         {suggestions
-          .filter((sug) => {
-            const regex = new RegExp(query, 'gi');
-            return sug.match(regex);
-          })
           .map((sug) => (
             <li>
-              <button onClick={() => updateSelectedValue(sug)} type="button">{sug}</button>
+              <button onClick={() => updateSelectedValue(sug)} type="button">{sug.name}</button>
             </li>
           ))}
       </Suggestions>
@@ -188,6 +169,7 @@ InputAutocomplete.propTypes = {
   onChange: PropTypes.func,
   onReady: PropTypes.func,
   error: PropTypes.bool.isRequired,
+  value: PropTypes.string,
 };
 
 export default InputAutocomplete;
