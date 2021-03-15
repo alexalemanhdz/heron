@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "PORT=3000 react-scripts start"
+    "build": "react-scripts build",
+    "start": "PORT=3000 react-scripts start",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/alexalemanhdz/heron.git"
   },
+  "homepage": "http://alexalemanhdz.github.io/heron",
   "author": "alexalemanhdz",
   "license": "ISC",
   "bugs": {

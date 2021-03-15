@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
@@ -14,7 +13,7 @@ const Container = styled.div`
   width: 315px;
 `;
 
-const Map = ({ query, suggestionsCallback }) => {
+const Map = () => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -37,19 +36,10 @@ const Map = ({ query, suggestionsCallback }) => {
     // }).addTo(mapRef.current);
   }, []);
 
-  useEffect(() => {
-    const geocoder = new L.Control.Geocoder.Nominatim();
-    geocoder.geocode(query, (results) => {
-      suggestionsCallback(results);
-    });
-  });
-
   return <Container id="map" />;
 };
 
 Map.propTypes = {
-  query: PropTypes.string.isRequired,
-  suggestionsCallback: PropTypes.func,
 };
 
 export default Map;

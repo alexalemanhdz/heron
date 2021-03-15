@@ -1,21 +1,48 @@
-import { UPDATE_QUERY, INIT_SUGGESTIONS_FETCH, UPDATE_SUGGESTIONS } from './constants';
+import {
+  UPDATE_START_QUERY,
+  INIT_START_SUGGESTIONS_FETCH,
+  UPDATE_START_SUGGESTIONS,
+  UPDATE_END_QUERY,
+  INIT_END_SUGGESTIONS_FETCH,
+  UPDATE_END_SUGGESTIONS,
+} from './constants';
 
-export function updateQuery(query) {
+export function updateStartQuery(query) {
   return {
-    type: UPDATE_QUERY,
+    type: UPDATE_START_QUERY,
     query,
   };
 }
 
-export function initSuggestionsFetch() {
+export function initStartSuggestionsFetch() {
   return {
-    type: INIT_SUGGESTIONS_FETCH,
+    type: INIT_START_SUGGESTIONS_FETCH,
   };
 }
 
-export function updateSuggestions(suggestions) {
+export function updateStartSuggestions(suggestions) {
   return {
-    type: UPDATE_SUGGESTIONS,
+    type: UPDATE_START_SUGGESTIONS,
+    suggestions,
+  };
+}
+
+export function updateEndQuery(query) {
+  return {
+    type: UPDATE_END_QUERY,
+    query,
+  };
+}
+
+export function initEndSuggestionsFetch() {
+  return {
+    type: INIT_END_SUGGESTIONS_FETCH,
+  };
+}
+
+export function updateEndSuggestions(suggestions) {
+  return {
+    type: UPDATE_END_SUGGESTIONS,
     suggestions,
   };
 }
