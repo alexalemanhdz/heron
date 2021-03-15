@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../../styles/fonts.css';
@@ -21,7 +21,6 @@ import {
 const App = () => {
   const dispatch = useDispatch();
 
-  const [startStreet] = useState(null);
   const {
     startQuery,
     startSuggestions,
@@ -32,10 +31,6 @@ const App = () => {
   // const updateStartStreet = (value) => {
   //   setStartStreet(value);
   // };
-
-  const searchStreet = () => {
-    dispatch(updateStartQuery(startStreet));
-  };
 
   return (
     <Wrapper
@@ -61,7 +56,6 @@ const App = () => {
       />
       <InputAutocomplete
         m2
-        mt5
         placeholder="Calle destino"
         suggestions={endSuggestions}
         onChange={(q) => {
@@ -73,12 +67,12 @@ const App = () => {
         error={false}
       />
       <Button
-        m1
+        m2
         p3
         mb5
         message="Calcular ruta"
-        onClick={searchStreet}
-        disabled={!(startStreet)}
+        onClick={() => {}}
+        disabled={!(startQuery && endQuery)}
       />
       <Geocoder query={startQuery} suggestionsCallback={(arr) => dispatch(updateStartSuggestions(arr))} />
       <Geocoder query={endQuery} suggestionsCallback={(arr) => dispatch(updateEndSuggestions(arr))} />

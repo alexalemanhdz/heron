@@ -15,7 +15,7 @@ const Geocoder = ({ query, suggestionsCallback }) => {
     });
   });
 
-  return <div>hola</div>;
+  return <div />;
 };
 
 Geocoder.propTypes = {

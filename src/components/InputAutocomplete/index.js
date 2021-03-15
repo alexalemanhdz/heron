@@ -136,7 +136,7 @@ function InputAutocomplete({
         value={value}
         className={error ? 'error' : ''}
       />
-      <Suggestions>
+      <Suggestions className={suggestions.length !== 0 ? '' : 'hidden'}>
         {suggestions
           .map((sug) => (
             <li>
