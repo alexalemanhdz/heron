@@ -1,38 +1,25 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 
 import '../../styles/fonts.css';
 
 import Wrapper from '../../components/Wrapper';
 import InputAutocomplete from '../../components/InputAutocomplete';
 import Button from '../../components/Button';
-import Geocoder from '../../components/Geocoder';
 import Map from '../../components/Map';
 
-import {
-  updateStartQuery,
-  updateStartSuggestions,
-  updateEndQuery,
-  updateEndSuggestions,
-  selectStartPoint,
-  selectEndPoint,
-} from './actions';
+import streets from '../../data/streets';
 
 const App = () => {
-  const dispatch = useDispatch();
+  const [startStreet, setStartStreet] = useState(null);
+  const [endStreet, setEndStreet] = useState(null);
 
-  const {
-    startQuery,
-    startSuggestions,
-    endQuery,
-    endSuggestions,
-    startPoint,
-    endPoint,
-  } = useSelector((state) => state, (a, b) => JSON.stringify(a) === JSON.stringify(b));
+  const updateStartStreet = (value) => {
+    setStartStreet(value);
+  };
 
-  // const updateStartStreet = (value) => {
-  //   setStartStreet(value);
-  // };
+  const updateEndStreet = (value) => {
+    setEndStreet(value);
+  };
 
   return (
     <Wrapper
@@ -47,38 +34,28 @@ const App = () => {
         m2
         mt5
         placeholder="Calle origen"
-        suggestions={startSuggestions}
-        onChange={(q) => {
-          dispatch(updateStartQuery(q));
-        }}
-        value={startQuery}
-        onReady={(v) => dispatch(selectStartPoint(v))}
+        suggestions={streets}
+        onReady={updateStartStreet}
         error={false}
       />
       <InputAutocomplete
         m2
+        mb3
         placeholder="Calle destino"
-        suggestions={endSuggestions}
-        onChange={(q) => {
-          dispatch(updateEndQuery(q));
-        }}
-        value={endQuery}
-        onReady={(v) => dispatch(selectEndPoint(v))}
+        suggestions={streets}
+        onReady={updateEndStreet}
         error={false}
       />
       <Button
-        m2
+        m1
         p3
         mb5
         message="Calcular ruta"
-        onClick={() => {}}
-        disabled={!(startQuery && endQuery)}
+        onClick={() => console.log(startStreet, endStreet)}
+        disabled={!(startStreet && endStreet)}
       />
-      <Geocoder query={startQuery} suggestionsCallback={(arr) => dispatch(updateStartSuggestions(arr))} />
-      <Geocoder query={endQuery} suggestionsCallback={(arr) => dispatch(updateEndSuggestions(arr))} />
-      <Map startPoint={startPoint} endPoint={endPoint} />
+      <Map />
     </Wrapper>
   );
 };
-
 export default App;

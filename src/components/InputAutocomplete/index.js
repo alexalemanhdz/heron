@@ -4,57 +4,61 @@
  *
  */
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+// import { FormattedMessage } from 'react-intl';
+// import messages from './messages';
+
 import theme, { spacingMapping } from '../../utils/theme';
 
 const Container = styled.div`
-  width: 315px;
-  margin: ${(props) => spacingMapping(props.margin)};
-  margin-top: ${(props) => props.marginTop
+   width: 315px;
+   margin: ${(props) => spacingMapping(props.margin)};
+   margin-top: ${(props) => props.marginTop
     ? spacingMapping(props.marginTop)
     : spacingMapping(props.margin)};
-  margin-bottom: ${(props) => props.marginBottom
+   margin-bottom: ${(props) => props.marginBottom
     ? spacingMapping(props.marginBottom)
     : spacingMapping(props.margin)};
-`;
+ `;
 
 const Input = styled.input`
-  background-color: ${theme.palette.background.offWhite};
-  border-radius: ${theme.rounding.wedged};
-  border-style: none;
-  padding: ${theme.spacing[3]} ${theme.spacing[4]};
-  width: 100%;
-  box-sizing: border-box;
-  font-family: ${theme.typeface.default};
-  font-weight: 500;
-
-  &::placeholder {
-    color: ${theme.palette.text.offWhite};
-    font-family: ${theme.typeface.default};
-    font-weight: 500;
-  }
-
-  &.error:not(:hover) {
-    box-shadow: red 0 0 2px 2px !important;
-  }
-`;
+   background-color: ${theme.palette.background.offWhite};
+   border-radius: ${theme.rounding.wedged};
+   border-style: none;
+   padding: ${theme.spacing[3]} ${theme.spacing[4]};
+   width: 100%;
+   box-sizing: border-box;
+   font-family: ${theme.typeface.default};
+   font-weight: 500;
+ 
+   &::placeholder {
+     color: ${theme.palette.text.offWhite};
+     font-family: ${theme.typeface.default};
+     font-weight: 500;
+   }
+ 
+   &.error:not(:hover) {
+     box-shadow: red 0 0 2px 2px !important;
+   }
+ `;
 
 const Suggestions = styled.ul`
-  width: 100%;
-  margin: ${theme.spacing[0]};
-  list-style: none;
-  padding: ${theme.spacing[2]} ${theme.spacing[0]};
-  max-height: 150px;
-  overflow-y: scroll;
-  transition-duration: 0.2s;
-
+   width: 100%;
+   margin: ${theme.spacing[0]};
+   list-style: none;
+   padding: ${theme.spacing[2]} ${theme.spacing[0]};
+   max-height: 150px;
+   overflow-y: scroll;
+   transition-duration: 0.2s;
+ 
   &.hidden {
     max-height: 0;
     padding: ${theme.spacing[0]};
   }
-
+ 
   li {
     width: 100%;
   }
@@ -74,7 +78,7 @@ const Suggestions = styled.ul`
   li>button:hover {
     background-color: ${theme.palette.background.offWhite};
   }
-`;
+ `;
 
 function InputAutocomplete({
   m1,
@@ -94,12 +98,23 @@ function InputAutocomplete({
   mb5,
   placeholder,
   suggestions,
-  onChange,
   onReady,
   error,
-  value,
 }) {
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const [query, setQuery] = useState('');
+
+  let mainInputRef = useRef(null);
+
+  const updateQuery = (q) => {
+    setShowSuggestions(true);
+    setQuery(q);
+    onReady('');
+  };
+
   const updateSelectedValue = (q) => {
+    setShowSuggestions(false);
+    mainInputRef.value = q;
     onReady(q);
   };
 
@@ -131,16 +146,23 @@ function InputAutocomplete({
       })()}
     >
       <Input
+        ref={(e) => {
+          mainInputRef = e;
+          return 0;
+        }}
         placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
+        onChange={(e) => updateQuery(e.target.value)}
         className={error ? 'error' : ''}
       />
-      <Suggestions className={suggestions.length !== 0 ? '' : 'hidden'}>
+      <Suggestions className={showSuggestions && query ? '' : 'hidden'}>
         {suggestions
+          .filter((sug) => {
+            const regex = new RegExp(query, 'gi');
+            return sug.match(regex);
+          })
           .map((sug) => (
             <li>
-              <button onClick={() => updateSelectedValue(sug)} type="button">{sug.name}</button>
+              <button onClick={() => updateSelectedValue(sug)} type="button">{sug}</button>
             </li>
           ))}
       </Suggestions>
@@ -166,10 +188,8 @@ InputAutocomplete.propTypes = {
   mb5: PropTypes.bool,
   placeholder: PropTypes.string,
   suggestions: PropTypes.array.isRequired,
-  onChange: PropTypes.func,
   onReady: PropTypes.func,
   error: PropTypes.bool.isRequired,
-  value: PropTypes.string,
 };
 
 export default InputAutocomplete;
