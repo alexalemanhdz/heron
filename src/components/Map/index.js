@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
@@ -14,7 +14,7 @@ const Container = styled.div`
   width: 315px;
 `;
 
-const Map = () => {
+const Map = ({ pointList }) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -26,22 +26,23 @@ const Map = () => {
     }).addTo(mapRef.current);
 
     L.heatLayer(crimeCoords).addTo(mapRef.current);
-
-    L.Routing.control({
-      waypoints: [
-        L.latLng(19.325874, -99.164856),
-        L.latLng(19.326995, -99.163583),
-        L.latLng(19.328115, -99.162309),
-      ],
-      routeWhileDragging: true,
-      geocoder: L.Control.Geocoder.nominatim(),
-    }).addTo(mapRef.current);
   }, []);
+
+  useEffect(() => {
+    if (pointList.length) {
+      L.Routing.control({
+        waypoints: pointList.map((point) => L.latLng(point.lat, point.lon)),
+        routeWhileDragging: true,
+        createMarker() { return null; },
+      }).addTo(mapRef.current);
+    }
+  });
 
   return <Container id="map" />;
 };
 
 Map.propTypes = {
+  pointList: PropTypes.array,
 };
 
 export default Map;
