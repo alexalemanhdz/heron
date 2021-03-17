@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import theme, { spacingMapping } from '../../utils/theme';
 
 const Container = styled.div`
-   width: 315px;
+   width: 345px;
    margin: ${(props) => spacingMapping(props.margin)};
    margin-top: ${(props) => props.marginTop
     ? spacingMapping(props.marginTop)

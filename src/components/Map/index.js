@@ -10,11 +10,11 @@ import 'leaflet-control-geocoder';
 import { crimeCoords } from '../../data/crimeCoords';
 
 const Container = styled.div`
-  height: 315px;
-  width: 315px;
+  height: 345px;
+  width: 345px;
 `;
 
-const Map = ({ pointList }) => {
+const Map = ({ pointList, counter }) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -29,20 +29,27 @@ const Map = ({ pointList }) => {
   }, []);
 
   useEffect(() => {
+    const control = L.Routing.control({
+      waypoints: pointList.map((point) => L.latLng(point.lat, point.lon)),
+      routeWhileDragging: true,
+      createMarker() { return null; },
+    });
+
     if (pointList.length) {
-      L.Routing.control({
-        waypoints: pointList.map((point) => L.latLng(point.lat, point.lon)),
-        routeWhileDragging: true,
-        createMarker() { return null; },
-      }).addTo(mapRef.current);
+      control.addTo(mapRef.current);
     }
-  });
+
+    return () => {
+      mapRef.current.removeControl(control);
+    };
+  }, [counter]);
 
   return <Container id="map" />;
 };
 
 Map.propTypes = {
   pointList: PropTypes.array,
+  counter: PropTypes.number,
 };
 
 export default Map;

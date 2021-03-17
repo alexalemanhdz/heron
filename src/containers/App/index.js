@@ -15,12 +15,15 @@ const App = () => {
   const [startStreet, setStartStreet] = useState(null);
   const [endStreet, setEndStreet] = useState(null);
   const [pointList] = useState([]);
+  const [counter, setCounter] = useState(0);
 
   const updateStartStreet = (value) => {
+    pointList.forEach((point) => pointList.pop(point));
     setStartStreet(value);
   };
 
   const updateEndStreet = (value) => {
+    pointList.forEach((point) => pointList.pop(point));
     setEndStreet(value);
   };
 
@@ -71,8 +74,7 @@ const App = () => {
       currentBack = visited[currentBack].predecessor;
     }
     tempList.forEach((temp) => pointList.push(temp));
-    setStartStreet(null);
-    setEndStreet(null);
+    setCounter(counter + 1);
   };
 
   return (
@@ -108,7 +110,7 @@ const App = () => {
         onClick={dijkstra}
         disabled={!(startStreet && endStreet)}
       />
-      <Map pointList={pointList} />
+      <Map pointList={pointList.reverse()} counter={counter} />
     </Wrapper>
   );
 };

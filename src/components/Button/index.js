@@ -65,7 +65,7 @@ const Container = styled.button`
     ? spacingMapping(props.marginBottom)
     : spacingMapping(props.margin)};
    padding: ${(props) => spacingMapping(props.padding)};
-   width: 315px;
+   width: 345px;
    z-index: 20;
  
    &:hover {
