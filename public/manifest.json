@@ -1,0 +1,23 @@
+{
+  "name": "Heron",
+  "short_name": "Heron",
+  "description": "Una aplicación para mostrar rutas seguras.",
+  "background_color": "#fafafa",
+  "theme_color": "#FF4860",
+  "inject": true,
+  "ios": true,
+  "icons": [
+    {
+      "src": "src/images/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "src/images/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/heron/",
+  "display": "standalone"
+}
