@@ -29,19 +29,43 @@ const Map = ({ pointList, counter }) => {
   }, []);
 
   useEffect(() => {
-    const control = L.Routing.control({
-      waypoints: pointList.map((point) => L.latLng(point.lat, point.lon)),
-      routeWhileDragging: true,
-      createMarker() { return null; },
-    });
-
     if (pointList.length) {
-      control.addTo(mapRef.current);
-    }
+      const controlSafest = L.Routing.control({
+        lineOptions: {
+          styles: [
+            { color: 'blue', opacity: 0.5 },
+          ],
+        },
+        waypoints: pointList.map((point) => L.latLng(point.lat, point.lon)),
+        routeWhileDragging: true,
+        createMarker() { return null; },
+      });
 
-    return () => {
-      mapRef.current.removeControl(control);
-    };
+      const controlShortest = L.Routing.control({
+        lineOptions: {
+          styles: [
+            { color: 'red', opacity: 0.5 },
+          ],
+        },
+        waypoints: [
+          L.latLng(pointList[0].lat, pointList[0].lon),
+          L.latLng(pointList[pointList.length - 1].lat, pointList[pointList.length - 1].lon),
+        ],
+        routeWhileDragging: true,
+        createMarker() { return null; },
+      });
+
+      if (pointList.length) {
+        controlSafest.addTo(mapRef.current);
+        controlShortest.addTo(mapRef.current);
+      }
+
+      return () => {
+        mapRef.current.removeControl(controlSafest);
+        mapRef.current.removeControl(controlShortest);
+      };
+    }
+    return null;
   }, [counter]);
 
   return <Container id="map" />;
