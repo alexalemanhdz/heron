@@ -2,8 +2,8 @@ const theme = {
   palette: {
     white: '#FFFFFF',
     black: '#000000',
-    primary: '#FF4860',
-    secondary: '#133C55',
+    primary: '#133C55',
+    secondary: '#FF4860',
     tertiary: '#FE9920',
     quaternary: '#1FA0B0',
     background: {
